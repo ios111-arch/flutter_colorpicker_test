@@ -40,6 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
     pickerColor = color;
   }
 
+  //カラーピッカー操作時のメソッド
   Future _showAlertDialog(BuildContext context) async {
     return showDialog<void>(
       context: context,
@@ -54,6 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
               //   // showLabel: true,
               //   pickerAreaHeightPercent: 0.8,
               // ),
+              //↓カラーピッカーの型を変える場合はこの箇所を変更する
               child: BlockPicker(
             pickerColor: pickerColor, //default color
             onColorChanged: _changeColor,
@@ -67,9 +69,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     await SharedPreferences.getInstance();
                 //カラーコード格納用の変数に、pickerColorをString型へ変換した値を代入する
                 colorCode = pickerColor.value.toRadixString(16);
+                //カラーコード格納用の変数の値を更新する
                 prefs.setString('color', colorCode);
+                //選択したカラーコードをデバッグに表示
                 print('選択したカラーコードは$colorCode');
 
+                //変数selectedColorの値を最新のものへ更新する
                 setState(() =>
                     selectedColor = Color(int.parse('$colorCode', radix: 16)));
 
@@ -84,12 +89,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // 画面起動時に読み込むメソッド
   void init() async {
-    final prefs = await SharedPreferences.getInstance();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      //　データの読み込み
+      //現在保存されているカラーコードを読み込む（未保存状態の場合、カラーコード'ff03a9f4'をセットする）
       colorCode = prefs.getString('color') ?? 'ff03a9f4';
+      //変数selectedColorの値を最新のものへ更新する
       selectedColor = Color(int.parse('$colorCode', radix: 16));
-      print('valueの初期値は$colorCode');
+      //アプリ起動時のcolorCodeの値をデバックへ表示する
+      print('アプリ起動時のcolorCodeの値は$colorCode');
     });
   }
 
