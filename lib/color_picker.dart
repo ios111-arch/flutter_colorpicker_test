@@ -5,7 +5,7 @@ class MyHomePage2 extends StatefulWidget {
   late final String title;
 
   @override
-  _HomeState get createState => _HomeState();
+  _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<MyHomePage2> {
