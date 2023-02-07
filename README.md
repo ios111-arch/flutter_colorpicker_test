@@ -1,6 +1,6 @@
 # flutter_colorpicker_test
 
-A new Flutter project.
+パッケージ『flutter_colorpicker』を利用してUIの色を変えるサンプルコード
 
 ## Getting Started
 
